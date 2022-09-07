@@ -1,10 +1,10 @@
 package com.dykim.hoiae.model.dto;
 
 public class MemoDTO {
-    public int code;
-    public String title;
-    public String content;
-    public String state;
+    private int code;
+    private String title;
+    private String content;
+    private String state;
 
     MemoDTO() {};
 
