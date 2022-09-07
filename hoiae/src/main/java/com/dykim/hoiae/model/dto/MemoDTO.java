@@ -1,17 +1,21 @@
 package com.dykim.hoiae.model.dto;
 
+import java.sql.Date;
+
 public class MemoDTO {
     private int code;
     private String title;
     private String content;
+    private Date createDate;
     private String state;
 
     MemoDTO() {};
 
-    public MemoDTO(int code, String title, String content, String state) {
+    public MemoDTO(int code, String title, String content, Date createDate, String state) {
         this.code = code;
         this.title = title;
         this.content = content;
+        this.createDate = createDate;
         this.state = state;
     }
 
@@ -39,6 +43,14 @@ public class MemoDTO {
         this.content = content;
     }
 
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
     public String getState() {
         return state;
     }
@@ -53,6 +65,7 @@ public class MemoDTO {
                 "code=" + code +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
+                ", createDate=" + createDate +
                 ", state='" + state + '\'' +
                 '}';
     }
