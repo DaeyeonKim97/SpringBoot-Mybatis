@@ -2,21 +2,23 @@ package com.dykim.hoiae.model.dto;
 
 import java.util.Date;
 
-public class MemoDTO {
+public class ReplyDTO {
     private int code;
-    private String title;
+    private String author;
     private String content;
     private Date createDate;
     private String state;
+    private int memoCode;
 
-    MemoDTO() {};
+    ReplyDTO(){}
 
-    public MemoDTO(int code, String title, String content, Date createDate, String state) {
+    public ReplyDTO(int code, String author, String content, Date createDate, String state, int memoCode) {
         this.code = code;
-        this.title = title;
+        this.author = author;
         this.content = content;
         this.createDate = createDate;
         this.state = state;
+        this.memoCode = memoCode;
     }
 
     public int getCode() {
@@ -27,12 +29,12 @@ public class MemoDTO {
         this.code = code;
     }
 
-    public String getTitle() {
-        return title;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getContent() {
@@ -59,14 +61,23 @@ public class MemoDTO {
         this.state = state;
     }
 
+    public int getMemoCode() {
+        return memoCode;
+    }
+
+    public void setMemoCode(int memoCode) {
+        this.memoCode = memoCode;
+    }
+
     @Override
     public String toString() {
-        return "MemoDTO{" +
+        return "ReplyDTO{" +
                 "code=" + code +
-                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
                 ", content='" + content + '\'' +
                 ", createDate=" + createDate +
                 ", state='" + state + '\'' +
+                ", memoCode=" + memoCode +
                 '}';
     }
 }
