@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div th:include="common/header.html"></div>
+<h3 align="center">메모 업데이트</h3>
+<form action="/memo/update" method="post" align="center">
+  <input th:value="${memo.code}" type="text" name="code" style="display: none">
+  <label>메모 제목 :</label><input type="text" name="title" th:value="${memo.title}"><br>
+  <label>메모 내용 :</label>
+  <textarea id="content" name="content" rows="5" cols="100" th:text="${memo.content}"></textarea>
+  <br>
+  <br>
+  <input type="submit" value="등록">
+</form>
+</body>
+</html>
