@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script>
+    const successMessage = '[[${successMessage}]]';
+    if(successMessage){
+      alert(successMessage);
+    }
+  </script>
+</head>
+<body>
+<div th:replace="common/header.html"></div>
+<form action="/memo/insert" align="center">
+    <input type="submit" value="신규 메모 작성">
+</form>
+
+<table align="center" border="1">
+  <tr>
+    <th>메모 번호</th>
+    <th>메모 이름</th>
+    <th>작성일</th>
+  </tr>
+  <tr th:each="memo : ${memoList}">
+      <td th:text="${memo.code}"></td>
+      <td>
+          <a th:href="@{/memo/{id}(id=${memo.code})}">
+            <span th:text="${memo.title}"/>
+          </a>
+      </td>
+      <td th:text="${memo.createDate}"></td>
+  </tr>
+</table>
+</body>
+</html>

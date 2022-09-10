@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        const successMessage = '[[${successMessage}]]';
+        if(successMessage){
+            alert(successMessage);
+        }
+    </script>
+</head>
+<body>
+<div th:replace="common/header.html"></div>
+
+<div align="left">
+    <h2 th:text="${memo.title}"></h2>
+    <hr>
+    <div align="left">
+        <span>작성일 : </span>
+        <span th:text="${memo.createDate}"></span>
+    </div>
+    <h3 align="left"> 내용 </h3>
+    <div th:text="${memo.content}"></div>
+    <form action="/memo/update" method="get">
+        <input th:value="${memo.code}" type="text" name="code" style="display: none">
+        <input type="submit" value="수정하기">
+    </form>
+    <form action="/memo/delete" method="post">
+        <input th:value="${memo.code}" type="text" name="code" style="display: none">
+        <input type="submit" value="삭제하기">
+        <hr>
+    </form>
+</div>
+
+<div>
+    <h2>댓글</h2>
+    <div th:each="reply : ${replies}">
+        <hr/>
+        <b>작성자 : </b><span th:text="${reply.author}"></span>
+        <br>
+        <span th:text="${reply.content}"></span>
+        <span th:text="${reply.createDate}"></span>
+    </div>
+</div>
+
+<div align="left">
+    <form action="/reply" method="post" align="left">
+        <br>
+        <hr>
+        <input th:value="${memo.code}" type="text" name="memoCode" style="display: none">
+        <label>작성자 :</label><input type="text" name="author">
+        <label>내용 :</label>
+        <input type="text" id="content" name="content" rows="5" cols="100"/>
+        <input type="submit" value="등록">
+    </form>
+</div>
+
+</body>
+</html>
