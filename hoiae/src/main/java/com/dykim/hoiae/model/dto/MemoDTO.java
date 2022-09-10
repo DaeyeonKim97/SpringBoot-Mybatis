@@ -9,7 +9,7 @@ public class MemoDTO {
     private Date createDate;
     private String state;
 
-    MemoDTO() {};
+    public MemoDTO() {};
 
     public MemoDTO(int code, String title, String content, Date createDate, String state) {
         this.code = code;
