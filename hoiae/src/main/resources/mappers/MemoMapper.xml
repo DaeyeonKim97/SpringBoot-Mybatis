@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dykim.hoiae.model.dao.MemoMapper">
+    <resultMap id="memoResultMap" type="com.dykim.hoiae.model.dto.MemoDTO">
+        <id property="code" column="MEMO_CODE"/>
+        <result property="title" column="MEMO_TITLE"/>
+        <result property="content" column="MEMO_CONTENT"/>
+        <result property="createDate" column="MEMO_CREATE_DATE"/>
+        <result property="state" column="MEMO_STATE"/>
+    </resultMap>
+    <resultMap id="replyResultMap" type="com.dykim.hoiae.model.dto.ReplyDTO">
+        <id property="code" column="REPLY_CODE"/>
+        <result property="author" column="REPLY_AUTHOR"/>
+        <result property="content" column="REPLY_CONTENT"/>
+        <result property="createDate" column="REPLY_CREATE_DATE"/>
+        <result property="state" column="REPLY_STATE"/>
+        <result property="memoCode" column="MEMO_CODE"/>
+    </resultMap>
+
+    <select id="selectAllMemo" resultMap="memoResultMap">
+        SELECT
+              A.MEMO_CODE,
+              A.MEMO_TITLE,
+              A.MEMO_CONTENT,
+              A.MEMO_CREATE_DATE,
+              A.MEMO_STATE
+        FROM TBL_MEMO A
+        WHERE A.MEMO_STATE = 'Y'
+        ORDER BY A.MEMO_CODE
+    </select>
+
+    <select id="selectMemoByCode" resultMap="memoResultMap">
+        SELECT
+            A.MEMO_CODE,
+            A.MEMO_TITLE,
+            A.MEMO_CONTENT,
+            A.MEMO_CREATE_DATE,
+            A.MEMO_STATE
+        FROM TBL_MEMO A
+        WHERE A.MEMO_CODE = #{code}
+    </select>
+
+    <insert id="insertMemo">
+        INSERT
+            INTO TBL_MEMO A
+        (
+          A.MEMO_CODE
+        , A.MEMO_TITLE
+        , A.MEMO_CONTENT
+        , A.MEMO_CREATE_DATE
+        , A.MEMO_STATE
+        )
+        VALUES
+        (
+          SEQ_MEMO_CODE.NEXTVAL
+        , #{title}
+        , #{content}
+        , #{createDate}
+        , #{state}
+        )
+    </insert>
+
+    <update id="updateMemo">
+        UPDATE
+            TBL_MEMO A
+        <set>
+            A.MEMO_CODE = #{code},
+            <if test="title != null and title !=''">
+                A.MEMO_TITLE = #{title},
+            </if>
+            <if test="content != null and content !=''">
+                A.MEMO_CONTENT = #{content},
+            </if>
+        </set>
+        WHERE A.MEMO_CODE = #{code}
+    </update>
+
+    <update id="deleteMemo">
+        UPDATE
+            TBL_MEMO A
+        <set>
+            A.MEMO_STATE = 'N'
+        </set>
+        WHERE A.MEMO_CODE = #{code}
+    </update>
+
+    <select id="selectReplyByMemoCode" resultMap="replyResultMap">
+        SELECT
+              A.REPLY_CODE
+            , A.REPLY_AUTHOR
+            , A.REPLY_CONTENT
+            , A.REPLY_CREATE_DATE
+            , A.REPLY_STATE
+            , A.MEMO_CODE
+        FROM TBL_REPLY A
+        WHERE A.MEMO_CODE = #{memoCode}
+          AND A.REPLY_STATE = 'Y'
+    </select>
+
+    <insert id="insertReply">
+        INSERT
+            INTO TBL_REPLY A
+        (
+          A.REPLY_CODE
+        , A.REPLY_AUTHOR
+        , A.REPLY_CONTENT
+        , A.REPLY_CREATE_DATE
+        , A.REPLY_STATE
+        , A.MEMO_CODE
+        )
+        VALUES
+        (
+          SEQ_REPLY_CODE.NEXTVAL
+        , #{author}
+        , #{content}
+        , #{createDate}
+        , #{state}
+        , #{memoCode}
+        )
+    </insert>
+
+    <delete id="deleteReply">
+        DELETE
+            FROM TBL_REPLY A
+        WHERE
+            A.MEMO_CODE = #{code}
+    </delete>
+</mapper>
